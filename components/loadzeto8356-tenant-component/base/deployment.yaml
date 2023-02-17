@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/created-by: application-service
+    app.kubernetes.io/instance: loadzeto8356-tenant-component
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: loadzeto8356-tenant-component
+    app.kubernetes.io/part-of: loadzeto8356-tenant-app
+  name: loadzeto8356-tenant-component
+  namespace: loadzeto8356-tenant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-app
+      app.kubernetes.io/instance: loadzeto8356-tenant-component
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: python-app
+        app.kubernetes.io/instance: loadzeto8356-tenant-component
+    spec:
+      containers:
+      - image: quay.io/stonesoup_perfscale/test-images:dd5a8c0c58e0441f9915c9f6aa73724d
+        name: my-python
+        ports:
+        - containerPort: 8081
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 10m
+            memory: 50Mi
+status: {}
